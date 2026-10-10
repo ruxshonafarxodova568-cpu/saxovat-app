@@ -17,6 +17,8 @@ export default function YangiElonPage() {
     condition: "Yaxshi",
     region: VILOYATLAR[0],
     description: "",
+    price_type: "free",
+    price_amount: "",
   });
   const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
@@ -121,6 +123,32 @@ export default function YangiElonPage() {
             {VILOYATLAR.map((v) => <option key={v} value={v}>{v}</option>)}
           </select>
         </div>
+        <div>
+  <label className="field-label">Narxi</label>
+  <div className="flex gap-4">
+    <select 
+      className="field" 
+      value={form.price_type} 
+      onChange={upd("price_type")}
+    >
+      <option value="free">Bepul (Free)</option>
+      <option value="custom">Narxini kiritish (Set price)</option>
+      <option value="negotiable">Kelishilgan narxda (Negotiable)</option>
+    </select>
+
+    {form.price_type === "custom" && (
+      <input
+        type="number"
+        className="field"
+        placeholder="Narxini kiriting (UZS)"
+        required
+        value={form.price_amount}
+        onChange={upd("price_amount")}
+        min="0"
+      />
+    )}
+  </div>
+</div>
         <div>
           <label className="field-label">Tavsif</label>
           <textarea required rows={4} className="field resize-none" placeholder="Buyum haqida qisqacha yozing" value={form.description} onChange={upd("description")} />
