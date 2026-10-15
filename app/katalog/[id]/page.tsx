@@ -33,13 +33,13 @@ export default async function ItemDetailPage({ params }: { params: { id: string 
           )}
         </div>
         <div>
-                    {(item as any).price_type === 'kelishilgan' ? (
+                    {(item as any).price_type === 'negotiable' ? (
             <span className="inline-block rounded-md bg-amber-50 px-2 py-1 text-xs font-semibold text-amber-700 ring-1 ring-inset ring-amber-600/20">
               Kelishilgan
             </span>
-          ) : Number((item as any).price) > 0 ? (
+          ) : Number((item as any).price_amount) > 0 ? (
             <span className="inline-block rounded-md bg-teal-50 px-2 py-1 text-xs font-semibold text-teal-700 ring-1 ring-inset ring-teal-600/20">
-              {Number((item as any).price).toLocaleString()} UZS
+              {Number((item as any).price_amount).toLocaleString()} UZS
             </span>
           ) : (
             <span className="badge-free">BEPUL</span>
