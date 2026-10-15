@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import Link from "next/link";
 import { ArrowRight, MapPin, User, ArrowLeftRight, HandHeart, Check, Sparkles } from "lucide-react";
 import { CATEGORIES } from "@/lib/constants";
