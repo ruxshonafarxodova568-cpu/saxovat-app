@@ -16,7 +16,13 @@ export default function ItemCard({ item }: { item: Item }) {
       </div>
       <div className="p-4">
         <div className="mb-2 flex items-center justify-between gap-2">
-          <span className="badge-free">BEPUL</span>
+          {Number(item.price) > 0 ? (
+            <span className="font-semibold text-teal-600 text-sm">
+              {Number(item.price).toLocaleString()} UZS
+            </span>
+          ) : (
+            <span className="badge-free">BEPUL</span>
+          )}
           <span className="text-xs text-ink-soft">{item.condition}</span>
         </div>
         <h4 className="line-clamp-2 text-[15px] font-semibold leading-snug">{item.title}</h4>
