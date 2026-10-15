@@ -50,7 +50,7 @@ export default function YangiElonPage() {
       image_url = supabase.storage.from("item-images").getPublicUrl(path).data.publicUrl;
     }
 
-    const { error: insertError } = await supabase.from("items").insert({
+        const { error: insertError } = await supabase.from("items").insert({
       owner_id: userId,
       title: form.title,
       description: form.description,
@@ -58,6 +58,8 @@ export default function YangiElonPage() {
       condition: form.condition,
       region: form.region,
       image_url,
+      price_type: form.price_type,                                              // Add this line
+      price_amount: form.price_type === "custom" ? Number(form.price_amount) : 0, // Add this line (saves as clean number)
     });
 
     setLoading(false);
