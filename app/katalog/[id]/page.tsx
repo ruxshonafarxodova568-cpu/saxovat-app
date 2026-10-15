@@ -29,10 +29,10 @@ export default async function ItemDetailPage({ params }: { params: { id: string 
     "use server";
     const supabaseClient = createClient();
     
-    const { error } = await supabaseClient
+        const { error } = await supabaseClient
       .from("items")
-      .eq("id", item.id)
-      .delete();
+      .delete()
+      .eq("id", item.id);
 
     if (!error) {
       redirect("/katalog");
