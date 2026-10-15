@@ -33,7 +33,17 @@ export default async function ItemDetailPage({ params }: { params: { id: string 
           )}
         </div>
         <div>
-          <span className="badge-free">BEPUL</span>
+                    {(item as any).price_type === 'kelishilgan' ? (
+            <span className="inline-block rounded-md bg-amber-50 px-2 py-1 text-xs font-semibold text-amber-700 ring-1 ring-inset ring-amber-600/20">
+              Kelishilgan
+            </span>
+          ) : Number((item as any).price) > 0 ? (
+            <span className="inline-block rounded-md bg-teal-50 px-2 py-1 text-xs font-semibold text-teal-700 ring-1 ring-inset ring-teal-600/20">
+              {Number((item as any).price).toLocaleString()} UZS
+            </span>
+          ) : (
+            <span className="badge-free">BEPUL</span>
+          )}
           <h1 className="mt-3 text-2xl font-semibold text-teal-900">{item.title}</h1>
           <div className="mt-2.5 flex flex-wrap gap-3.5 text-[13.5px] text-ink-soft">
             <span className="flex items-center gap-1.5"><MapPin size={14} /> {item.region}</span>
