@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
-import { notFound } from "next/navigation";
-import { ChevronLeft, MapPin, User } from "lucide-react";
+import { notFound, redirect } from "next/navigation";
+import { ChevronLeft, MapPin, User, Trash2 } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { categoryLabel } from "@/lib/constants";
 import RequestForm from "@/components/RequestForm";
@@ -11,6 +11,7 @@ export const dynamic = "force-dynamic";
 
 export default async function ItemDetailPage({ params }: { params: { id: string } }) {
   const supabase = createClient();
+  
   const { data: item } = await supabase
     .from("items")
     .select("*, profiles ( full_name )")
@@ -52,7 +53,7 @@ export default async function ItemDetailPage({ params }: { params: { id: string 
           )}
         </div>
         <div>
-                    {(item as any).price_type === 'negotiable' ? (
+          {(item as any).price_type === 'negotiable' ? (
             <span className="inline-block rounded-md bg-amber-50 px-2 py-1 text-xs font-semibold text-amber-700 ring-1 ring-inset ring-amber-600/20">
               Kelishilgan
             </span>
@@ -63,6 +64,7 @@ export default async function ItemDetailPage({ params }: { params: { id: string 
           ) : (
             <span className="badge-free">BEPUL</span>
           )}
+
           <h1 className="mt-3 text-2xl font-semibold text-teal-900">{item.title}</h1>
           <div className="mt-2.5 flex flex-wrap gap-3.5 text-[13.5px] text-ink-soft">
             <span className="flex items-center gap-1.5"><MapPin size={14} /> {item.region}</span>
@@ -92,8 +94,8 @@ export default async function ItemDetailPage({ params }: { params: { id: string 
               </button>
             </form>
           ) : (
-      
-          <RequestForm itemId={item.id} ownerId={item.owner_id} />
+            <RequestForm itemId={item.id} ownerId={item.owner_id} />
+          )}
         </div>
       </div>
     </div>
