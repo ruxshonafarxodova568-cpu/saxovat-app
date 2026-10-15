@@ -19,6 +19,25 @@ export default async function ItemDetailPage({ params }: { params: { id: string 
 
   if (!item) notFound();
 
+  // Get current logged-in user to check ownership
+  const { data: { user } } = await supabase.auth.getUser();
+  const isOwner = item.owner_id === user?.id;
+
+  // Server Action to handle the deletion securely
+  async function deleteItem() {
+    "use server";
+    const supabaseClient = createClient();
+    
+    const { error } = await supabaseClient
+      .from("items")
+      .eq("id", item.id)
+      .delete();
+
+    if (!error) {
+      redirect("/katalog");
+    }
+  }
+
   return (
     <div className="mx-auto max-w-4xl px-5 py-8">
       <Link href="/katalog" className="mb-4 inline-flex items-center gap-1.5 text-sm font-semibold text-teal-700">
@@ -62,6 +81,18 @@ export default async function ItemDetailPage({ params }: { params: { id: string 
             </div>
           </div>
 
+          {/* If owner logs in, show Delete button. If another user logs in, show Request Form */}
+          {isOwner ? (
+            <form action={deleteItem} className="mt-4">
+              <button 
+                type="submit" 
+                className="flex w-full items-center justify-center gap-2 rounded-xl bg-red-50 border border-red-200 py-3 text-sm font-semibold text-red-600 transition hover:bg-red-100 active:scale-[0.99]"
+              >
+                <Trash2 size={16} /> E'lonni o'chirish
+              </button>
+            </form>
+          ) : (
+      
           <RequestForm itemId={item.id} ownerId={item.owner_id} />
         </div>
       </div>
