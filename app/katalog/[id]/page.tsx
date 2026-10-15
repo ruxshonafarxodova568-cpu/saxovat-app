@@ -32,7 +32,9 @@ export default async function ItemDetailPage({ params }: { params: { id: string 
         const { error } = await supabaseClient
       .from("items")
       .delete()
-      .eq("id", item.id);
+      .eq("id", (item as any)?.id);
+
+
 
     if (!error) {
       redirect("/katalog");
