@@ -16,11 +16,11 @@ export default function ItemCard({ item }: { item: Item }) {
       </div>
       <div className="p-4">
         <div className="mb-2 flex items-center justify-between gap-2">
-                        {(item as any).price_type === 'kelishilgan' ? (
+                        {(item as any).price_type === 'negotiable' ? (
             <span className="font-semibold text-amber-600 text-sm">Kelishilgan</span>
-          ) : Number((item as any).price) > 0 ? (
+          ) : Number((item as any).price_amount) > 0 ? (
             <span className="font-semibold text-teal-600 text-sm">
-              {Number((item as any).price).toLocaleString()} UZS
+              {Number((item as any).price_amount).toLocaleString()} UZS
             </span>
           ) : (
             <span className="badge-free">BEPUL</span>
