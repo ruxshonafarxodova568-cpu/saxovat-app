@@ -18,6 +18,8 @@ export type Item = {
   status: "faol" | "band" | "berildi";
   created_at: string;
   profiles?: Pick<Profile, "full_name">;
+  price_type?: "bepul" | "set_price" | "kelishilgan";
+  price?: number | null;
 };
 
 export type ItemRequest = {
